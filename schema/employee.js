@@ -1,21 +1,17 @@
-import { Mongoose } from "mongoose";
+var mongoose = require('mongoose');
 
-var employee = Mongoose.Schema({
+var employeschema = mongoose.Schema({
 
             companyName: {
-                type: string,
-                required: true
+                type: String,  
             },
-
             designation: {  
-                type: string,
-                required: true
+                type: String,               
             },
-
             technology: {  
-                type: string,
-                required: true
+                type: String,
+                
             }
 })
 
-export { Employee }
+module.exports = mongoose.model('employ',employeschema);

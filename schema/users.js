@@ -1,32 +1,32 @@
-import { Mongoose } from "mongoose";
+var mongoose = require('mongoose');
 
-var users = Mongoose.Schema({
+var userschema = mongoose.Schema({
 
             firstName: {
-                type: string,
-                required: true
+                type: String
+               
             },
 
             lastName: {  
-                type: string,
-                required: true
+                type: String
+                
             },
 
             email: {  
-                type: string,
-                required: true
+                type: String
+              
             },
 
             mobile: {  
-                type: number,
-                required: true
+                type: Number
+               
             },
 
             technology: {  
-                type: string,
-                required: true
+                type: String
+                
             }
-})
+});
 
-export { Users }
+module.exports = mongoose.model('users',userschema);
 

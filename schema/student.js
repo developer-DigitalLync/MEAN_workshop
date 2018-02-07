@@ -1,21 +1,21 @@
-import { Mongoose } from "mongoose";
+var mongoose = require('mongoose');
 
-var students = Mongoose.Schema({
+var studentschema = mongoose.Schema({
 
             collegeName: {
-                type: string,
-                required: true
+                type: String
+               
             },
 
             yearOfPassing: {  
-                type: string,
-                required: true
+                type: String
+                
             },
 
             technology: {  
-                type: string,
-                required: true
+                type: String
+               
             }
-})
+});
 
-export { Students }
+module.exports = mongoose.model('student',studentschema);
