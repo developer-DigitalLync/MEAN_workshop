@@ -12,6 +12,11 @@ var studentschema = mongoose.Schema({
                 
             },
 
+            email: {  
+                type: String
+              
+            },
+
             technology: {  
                 type: String
                

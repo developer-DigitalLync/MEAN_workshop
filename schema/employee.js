@@ -8,6 +8,12 @@ var employeschema = mongoose.Schema({
             designation: {  
                 type: String,               
             },
+
+            email: {  
+                type: String
+              
+            },
+            
             technology: {  
                 type: String,
                 

@@ -22,6 +22,15 @@ var userschema = mongoose.Schema({
                
             },
 
+            password: {
+                type: String
+            },
+
+            workingstatus: {  
+                type: String
+               
+            },
+
             technology: {  
                 type: String
                 
