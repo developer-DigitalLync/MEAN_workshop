@@ -5,6 +5,7 @@ var user = require('../schema/users');
 var student = require('../schema/student');
 var employee= require('../schema/employee');
 var nodemailer = require('nodemailer');
+let bcryptjs = require('bcryptjs');
 var transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
             port: 465,
@@ -53,7 +54,8 @@ router.post('/register', function(req, res, next) {
 });
 
 router.post('/password', (req, res)=>{
-  user.findOneAndUpdate({email:req.body.email}, {$set: { password: req.body.password }}, {new:true},(err, data)=>{
+  let hash = bcryptjs.hashSync(req.body.password, 8);
+  user.findOneAndUpdate({email:req.body.email}, {$set: { password: hash }}, {new:true},(err, data)=>{
     if(err) res.send("Error")
     res.send("Password set Successfully");
   })
@@ -72,6 +74,19 @@ router.get('/users', (req,res)=>{
 router.get('/details', (req, res)=>{
   user.findById(req.query.id).populate('work').populate('education').exec((err, data)=>{
     res.send(data);
+  })
+})
+
+router.post('/login', (req, res)=>{
+  user.findOne({email:req.body.email}, (err, data)=>{
+    if(err) res.send("Something went wrong while logging");
+    if(!data){
+      res.send('No User Found')
+    }else{
+      if(bcryptjs.compareSync(data.password, req.body.password)){
+        res.send(data);
+      }
+    }
   })
 })
 
