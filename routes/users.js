@@ -33,7 +33,7 @@ router.post('/register', function(req, res, next) {
               console.log(err);
             }
             else{
-            var link="http://localhost:4200/auth/setpassword?id="+data.email;
+            var link="http://localhost:4200/#/auth/setpassword?id="+data.email;
             const mailOptions = {
               from: 'development@digitallynctech.com', // sender address
               to: data.email, // list of receivers
@@ -79,13 +79,15 @@ router.get('/details', (req, res)=>{
 
 router.post('/login', (req, res)=>{
   user.findOne({email:req.body.email}, (err, data)=>{
+    let compare = bcryptjs.compareSync(req.body.password, data.password);
     if(err) res.send("Something went wrong while logging");
     if(!data){
       res.send('No User Found')
+    }else if(!compare){
+      res.send("Invalid Credentials")
     }else{
-      if(bcryptjs.compareSync(data.password, req.body.password)){
-        res.send(data);
-      }
+      delete data["password"];
+      res.send(data);
     }
   })
 })
