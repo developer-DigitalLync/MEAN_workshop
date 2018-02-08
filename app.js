@@ -11,7 +11,7 @@ let mongoose = require('mongoose');
 mongoose.connect('mongodb://root:root@ds229468.mlab.com:29468/workshop');
 
 var app = express();
-//app.use(cors());
+app.use(cors());
 //console.log(db);
 
  //view engine setup
