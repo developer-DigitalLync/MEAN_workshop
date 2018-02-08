@@ -54,6 +54,10 @@ router.post('/register', function(req, res, next) {
 res.send("Registration success");
 });
 
+router.get('/', (req, res)=>{
+  res.send("Workshop Application")
+})
+
 router.get('/users', (req,res)=>{
     user.find({}).populate('work').populate('education').exec((err,data)=>{
       res.send(data);
