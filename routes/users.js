@@ -50,19 +50,19 @@ router.post('/register', function(req, res, next) {
          })
         })
       })
-  res.send("Registration success");
+  res.send({data:"Registration success"});
 });
 
 router.post('/password', (req, res)=>{
   let hash = bcryptjs.hashSync(req.body.password, 8);
   user.findOneAndUpdate({email:req.body.email}, {$set: { password: hash }}, {new:true},(err, data)=>{
     if(err) res.send("Error")
-    res.send("Password set Successfully");
+    res.send({data:"Password set Successfully"});
   })
 })
 
 router.get('/', (req, res)=>{
-  res.send("Workshop Application")
+  res.send({data:"Workshop Application"})
 })
 
 router.get('/users', (req,res)=>{
@@ -80,11 +80,11 @@ router.get('/details', (req, res)=>{
 router.post('/login', (req, res)=>{
   user.findOne({email:req.body.email}, (err, data)=>{
     let compare = bcryptjs.compareSync(req.body.password, data.password);
-    if(err) res.send("Something went wrong while logging");
+    if(err) res.send({data:"Something went wrong while logging"});
     if(!data){
-      res.send('No User Found')
+      res.send({data:'No User Found'})
     }else if(!compare){
-      res.send("Invalid Credentials")
+      res.send({data:"Invalid Credentials"})
     }else{
       delete data["password"];
       res.send(data);
