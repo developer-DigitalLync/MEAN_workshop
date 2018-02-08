@@ -6,11 +6,14 @@ var student = require('../schema/student');
 var employee= require('../schema/employee');
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-         user: 'dummytest471@gmail.com',
-         pass: 'dummytest3296'
-     }
+  host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
+            requireTLS: true,
+            auth: {
+                user: 'elit.naveen@gmail.com',
+                pass: 'kddintepfsnefnrw'
+            }
  });
 
 /* Insert users listing. */
@@ -29,7 +32,7 @@ router.post('/register', function(req, res, next) {
               console.log(err);
             }
             else{
-            var link="http://localhost:3000/password?Id="+data.email;
+            var link="http://localhost:4200/auth/setpassword?id="+data.email;
             const mailOptions = {
               from: 'development@digitallynctech.com', // sender address
               to: data.email, // list of receivers
@@ -46,13 +49,15 @@ router.post('/register', function(req, res, next) {
          })
         })
       })
-      // student.create({},(err, info)=>{
-      //   console.log(info)
-      //   data.education = info._id;
-      // })
-      
-res.send("Registration success");
+  res.send("Registration success");
 });
+
+router.post('/password', (req, res)=>{
+  user.findOneAndUpdate({email:req.body.email}, {$set: { password: req.body.password }}, {new:true},(err, data)=>{
+    if(err) res.send("Error")
+    res.send("Password set Successfully");
+  })
+})
 
 router.get('/', (req, res)=>{
   res.send("Workshop Application")
