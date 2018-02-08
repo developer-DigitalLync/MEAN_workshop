@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var studentschema = mongoose.Schema({
+var educationschema = mongoose.Schema({
 
             collegeName: {
                 type: String
@@ -8,19 +8,14 @@ var studentschema = mongoose.Schema({
             },
 
             yearOfPassing: {  
-                type: String
+                type: Number
                 
             },
 
-            email: {  
-                type: String
-              
-            },
-
-            technology: {  
+            stream: {  
                 type: String
                
             }
 });
 
-module.exports = mongoose.model('student',studentschema);
+module.exports = mongoose.model('education',educationschema);

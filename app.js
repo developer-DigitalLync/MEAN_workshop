@@ -4,13 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var index = require('./routes/index');
 var users = require('./routes/users');
-var MongoClient = require('mongodb').MongoClient;
+let mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/workshop');
 
 var app = express();
-var db = require('./bin/connection').db;
 //console.log(db);
 
  //view engine setup
@@ -26,7 +25,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/update', index);
-app.use('/user', users);
+app.use('/', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -46,4 +45,6 @@ app.use(function(req, res, next) {
 //   res.render('error');
 // });
 
-module.exports = app;
+app.listen(3000,()=>{
+	console.log('Server running o port 3000')
+})

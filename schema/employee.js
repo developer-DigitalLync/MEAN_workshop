@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var employeschema = mongoose.Schema({
+var workschema = mongoose.Schema({
 
             companyName: {
                 type: String,  
@@ -8,16 +8,10 @@ var employeschema = mongoose.Schema({
             designation: {  
                 type: String,               
             },
-
-            email: {  
-                type: String
-              
-            },
-            
             technology: {  
                 type: String,
                 
             }
 })
 
-module.exports = mongoose.model('employ',employeschema);
+module.exports = mongoose.model('work',workschema);

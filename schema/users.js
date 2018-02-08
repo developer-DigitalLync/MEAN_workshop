@@ -2,12 +2,12 @@ var mongoose = require('mongoose');
 
 var userschema = mongoose.Schema({
 
-            firstName: {
+            firstname: {
                 type: String
                
             },
 
-            lastName: {  
+            lastname: {  
                 type: String
                 
             },
@@ -25,16 +25,16 @@ var userschema = mongoose.Schema({
             password: {
                 type: String
             },
-
+            image: { type: String},
             workingstatus: {  
                 type: String
                
             },
-
             technology: {  
                 type: String
-                
-            }
+            },
+            work  : { type: mongoose.Schema.Types.ObjectId, ref: 'work' },
+            education  : { type: mongoose.Schema.Types.ObjectId, ref: 'education' }
 });
 
 module.exports = mongoose.model('users',userschema);

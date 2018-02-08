@@ -9,6 +9,7 @@
     "async": "^2.6.0",
     "async--await": "^1.0.2",
     "asyncawait": "^1.0.6",
+    "bcryptjs": "^2.4.3",
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
