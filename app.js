@@ -6,10 +6,12 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
+let cors = require('cors');
 let mongoose = require('mongoose');
 mongoose.connect('mongodb://root:root@ds229468.mlab.com:29468/workshop');
 
 var app = express();
+app.use(cors());
 //console.log(db);
 
  //view engine setup

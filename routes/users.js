@@ -64,4 +64,10 @@ router.get('/users', (req,res)=>{
     })
 })
 
+router.get('/details', (req, res)=>{
+  user.findById(req.query.id).populate('work').populate('education').exec((err, data)=>{
+    res.send(data);
+  })
+})
+
 module.exports = router;
