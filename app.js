@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 let mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/workshop');
+mongoose.connect('mongodb://root:root@ds229468.mlab.com:29468/workshop');
 
 var app = express();
 //console.log(db);
