@@ -4,7 +4,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var index = require('./routes/index');
 var users = require('./routes/users');
 let cors = require('cors');
 let mongoose = require('mongoose');
@@ -26,7 +25,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/update', index);
 app.use('/', users);
 
 // catch 404 and forward to error handler

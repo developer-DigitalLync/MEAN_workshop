@@ -2,8 +2,6 @@
 var express = require('express');
 var router = express.Router();
 var user = require('../schema/users');
-var student = require('../schema/student');
-var employee= require('../schema/employee');
 var nodemailer = require('nodemailer');
 let bcryptjs = require('bcryptjs');
 var transporter = nodemailer.createTransport({
@@ -23,22 +21,39 @@ router.post('/register', function(req, res, next) {
       var data = req.body;
       console.log(data);
       // var userAdd = new user(data);
-      employee.create({},(err, work)=>{
-        data.work = work._id;
-        student.create({},(err, edu)=>{
-        data.education = edu._id;
-        console.log(data)
-          user.create(data,(err,res)=>{
+     user.create(data,(err,dat)=>{
             if(err){
               console.log(err);
             }
             else{
             var link="http://localhost:4200/#/auth/setpassword?id="+data.email;
             const mailOptions = {
-              from: 'development@digitallynctech.com', // sender address
+              from: '"Digital Lync" <development@digitallynctech.com>', // sender address
               to: data.email, // list of receivers
               subject: 'Please Set your password', // Subject line
-              html: "<a href="+link+"><b>Thank you For Registering click here Link to Set Password</b></a>"
+              html: `<!DOCTYPE html>
+                       <html>
+                       <head>
+                           <title>Password Reset</title>
+                       </head>
+                       <body>
+                       <div style="background-color:#white ;width: 60%;height: 50%;padding-top: 3%;padding-bottom: 3%;">
+                       <div style="width: 50%;height: 30%; background-image: linear-gradient(135deg, #3023ae, #c86dd7);box-shadow:  3px 3px 10px #888888 ;padding: 40px;margin: auto;border-radius: 10px;">
+                               <h1 style="text-align: center;font-family: 'Roboto', sans-serif;color:white">Full Stack Workshop</h1>
+                               <p style="font-family: 'Roboto', sans-serif;line-height: 30px;color: white;text-align: center;">Hi Naveen,</p>
+                           <p style="font-family: 'Roboto', sans-serif;line-height: 25px;text-align: center;color: white">Thank You <br>Your are successfully Registered<br> for Full stack workshop
+                               
+                           
+                           </p>
+                           <div style="text-align="center">
+                
+                           <button style="color: blue;text-align: center;border:0px;outline: 0px; width: 150px;height: 40px;border-radius: 4px;background-color: #f2f2f2;cursor: pointer; font-family: Roboto;font-size: 15px;font-weight: bold;font-style: normal;font-stretch: normal;line-height: normal;letter-spacing: 1.2px;text-align: left;color: #3d29b1;margin-left: 132px;"><a style="text-decoration="none"" href="${link}">Create Password</a></button>
+                  
+                       </div>
+                       </div>
+                       </div>
+                       </body>
+                       </html>`
             };
             transporter.sendMail(mailOptions, function (err, info) {
               if(err){
@@ -51,21 +66,20 @@ router.post('/register', function(req, res, next) {
             });
           }
          })
-        })
-      })
-  
 });
+
+
 
 router.post('/password', (req, res)=>{
   let hash = bcryptjs.hashSync(req.body.password, 8);
   console.log(hash)
-  user.findOneAndUpdate({email:req.body.email}, {$set:{ password: hash }}, {new:true},(err, data)=>{
-    if(err) res.send(err)
-      if(data){ res.send({status:"error", message:"Password set successfully"}); 
-  }else{
-    res.send({status:"error", message:"Something went wrong, Try again"})
-  }
-  })
+  
+            user.findOneAndUpdate({email:req.body.email}, {$set:{ password: hash }}, {new:true},(err, data)=>{
+              if(err){ res.send({status:"error", message:"Something went wrong, Try again"}); 
+              }else{
+                res.send({status:"success", message:"Password set successfully"})
+              }
+          })
 })
 
 router.get('/', (req, res)=>{
@@ -73,15 +87,30 @@ router.get('/', (req, res)=>{
 })
 
 router.get('/users', (req,res)=>{
-    user.find({}).populate('work').populate('education').exec((err,data)=>{
+    user.find({}).exec((err,data)=>{
       res.send({status:"success", message:data});
     })
 })
 
 router.get('/details', (req, res)=>{
-  user.findById(req.query.id).populate('work').populate('education').exec((err, data)=>{
-    res.send({status:"success", message:data});
+  user.findById(req.query.id).exec((err, data)=>{
+    if(err){
+      res.send({status:"error", message:'Problem while retriving data, Try again'})
+    }else{
+      res.send({status:"success", message:data});
+    }
   })
+})
+
+router.post('/update', (req, res)=>{
+  let obj = req.body;
+  console.log(obj)
+          user.findOneAndUpdate({email:obj.email}, {$set:obj}, {new:true}, (err, details)=>{
+              if(err){ res.send({status:"error", message:err}); 
+              }else{
+                res.send({status:"sucess", message:details})
+              }
+          })
 })
 
 router.post('/login', (req, res)=>{

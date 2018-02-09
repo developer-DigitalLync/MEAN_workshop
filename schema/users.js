@@ -2,40 +2,34 @@ var mongoose = require('mongoose');
 
 var userschema = mongoose.Schema({
 
-            firstname: {
-                type: String
-               
-            },
+            firstname: {type: String,default:null},
 
-            lastname: {  
-                type: String
-                
-            },
+            lastname: {type: String,default:null},
 
-            email: {  
-                type: String
-              
-            },
+            email: {type: String,default:null},
 
-            mobile: {  
-                type: Number
-               
-            },
+            mobile: {type: Number,default:null},
 
-            password: {
-                type: String
-            },
-            image: { type: String},
-            workingstatus: {  
-                type: String
-               
-            },
-            technology: {  
-                type: String
-            },
-            work  : { type: mongoose.Schema.Types.ObjectId, ref: 'work' },
-            education  : { type: mongoose.Schema.Types.ObjectId, ref: 'education' }
+            password: {type: String,default:null},
+
+            image: {type: String,default:null},
+
+            workingstatus: {type: String,default:null},
+
+            interstedTech: {type: String,default:null},
+
+            companyName: {type: String,default:null},
+
+            designation: {type: String,default:null},
+
+            workingOn: {type: String,default:null},
+
+            collegeName: {type: String,default:null},
+            
+            yearOfPassing: {type: Number,default:null},
+
+            stream: {type: String,default:null}
 });
 
-module.exports = mongoose.model('users',userschema);
+module.exports = mongoose.model('user',userschema);
 
