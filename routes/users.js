@@ -20,8 +20,13 @@ router.post('/register', function(req, res, next) {
  
       var data = req.body;
       console.log(data);
-      // var userAdd = new user(data);
-     user.create(data,(err,dat)=>{
+      user.findOne({email:data.email}, (err, info)=>{
+        if(err){
+          res.send({status:"error", message:"Error while Registration"})
+        }else if(info){
+          res.send({status:"error", message"Email already exits"})
+        }else{
+        user.create(data,(err,dat)=>{
             if(err){
               console.log(err);
             }
@@ -66,6 +71,8 @@ router.post('/register', function(req, res, next) {
             });
           }
          })
+        }
+      })
 });
 
 
