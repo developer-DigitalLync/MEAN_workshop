@@ -46,5 +46,5 @@ app.use(function(req, res, next) {
 // });
 
 app.listen(3000,()=>{
-	console.log('Server running o port 3000')
+	console.log('Server running on port 3000')
 })
