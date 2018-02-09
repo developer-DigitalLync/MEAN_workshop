@@ -12,7 +12,7 @@ var userschema = mongoose.Schema({
 
             password: {type: String,default:null},
 
-            image: {type: Buffer,default:null},
+            image: {data: Buffer, contentType: String},
 
             workingstatus: {type: String,default:null},
 
