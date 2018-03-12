@@ -24,7 +24,7 @@ router.post('/register', function(req, res, next) {
         if(err){
           res.send({status:"error", message:"Error while Registration"})
         }else if(info){
-          res.send({status:"error", message"Email already exits"})
+          res.send({status:"error", message:"Email already exits"})
         }else{
         user.create(data,(err,dat)=>{
             if(err){
